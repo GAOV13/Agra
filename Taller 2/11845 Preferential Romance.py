@@ -55,21 +55,35 @@ def main():
         grafo = []
         invertices = []
         string_numero = {}
-        lista = list(map(str, stdin.readline().split()))
         num = 0
-        i = 1
-        ini = 0
-        fin = 0
-        if len(lista) > 0:
-            string_numero[lista[0]] = num
-            num += 1
-            ini = num - 1
-            grafo.append([])
-            invertices.append(0)
+        for j in range(2):
+            lista = list(map(str, stdin.readline().split()))
+            i = 1
+            ini = 0
+            fin = 0
+            if len(lista) > 0:
+                ini = string_numero.get(lista[0])
+                if(ini == None):
+                    string_numero[lista[0]] = num
+                    num += 1
+                    ini = num - 1
+                    grafo.append([])
+                    invertices.append(0)
 
-        while i < len(lista) - 1:
-            if(lista[i] == ","):
-                i += 1
+            while i < len(lista) - 1:
+                if(lista[i] == ","):
+                    i += 1
+                    fin = string_numero.get(lista[i])
+                    if(fin == None):
+                        string_numero[lista[i]] = num
+                        num += 1
+                        grafo.append([])
+                        invertices.append(0)
+                        fin = num - 1
+                    
+                    ini = fin
+                    i += 1
+                    continue
                 fin = string_numero.get(lista[i])
                 if(fin == None):
                     string_numero[lista[i]] = num
@@ -77,62 +91,11 @@ def main():
                     grafo.append([])
                     invertices.append(0)
                     fin = num - 1
-                
+                grafo[ini].append(fin)
+                invertices[fin] += 1
                 ini = fin
                 i += 1
-                continue
 
-            fin = string_numero.get(lista[i])
-            if(fin == None):
-                string_numero[lista[i]] = num
-                num += 1
-                grafo.append([])
-                invertices.append(0)
-                fin = num - 1
-            grafo[ini].append(fin)
-            invertices[fin] += 1
-            ini = fin
-            i += 1
-        
-        lista = list(map(str, stdin.readline().split()))
-        i = 1
-        ini = 0
-        fin = 0
-        if len(lista) > 0:
-            ini = string_numero.get(lista[0])
-            if(ini == None):
-                string_numero[lista[0]] = num
-                num += 1
-                ini = num - 1
-                grafo.append([])
-                invertices.append(0)
-
-        while i < len(lista) - 1:
-            if(lista[i] == ","):
-                i += 1
-                fin = string_numero.get(lista[i])
-                if(fin == None):
-                    string_numero[lista[i]] = num
-                    num += 1
-                    grafo.append([])
-                    invertices.append(0)
-                    fin = num - 1
-                
-                ini = fin
-                i += 1
-                continue
-            fin = string_numero.get(lista[i])
-            if(fin == None):
-                string_numero[lista[i]] = num
-                num += 1
-                grafo.append([])
-                invertices.append(0)
-                fin = num - 1
-            grafo[ini].append(fin)
-            invertices[fin] += 1
-            ini = fin
-            i += 1
-        
         cant = kahn_topo()
         if cant == len(invertices):
             print("F")

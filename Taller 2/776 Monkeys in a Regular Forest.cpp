@@ -11,61 +11,15 @@
 
 using namespace std;
 
+int ejex[8] = {0, 1, 1, 1, 0, -1, -1, -1};
+int ejey[8] = {1, 1, 0, -1, -1, -1, 0, 1};
+
 void dfs(int i, int j, int num, int &tami, int &tamj, vvi &visitado, vvs &info){
     for(int indice = 0; indice < 8; ++indice){
-        if(j + 1 < tamj && indice == 0){
-            if(info[i][j] == info[i][j + 1] && !visitado[i][j + 1]){
-                visitado[i][j + 1] = num;
-                dfs(i, j + 1, num, tami, tamj, visitado, info);
-            }
-        }
-
-        else if(j + 1 < tamj && i + 1 < tami && indice == 1){
-            if(info[i][j] == info[i + 1][j + 1] && !visitado[i + 1][j + 1]){
-                visitado[i + 1][j + 1] = num;
-                dfs(i + 1, j + 1, num, tami, tamj, visitado, info);
-            }
-        }
-
-        else if(i + 1 < tami && indice == 2){
-            if(info[i][j] == info[i + 1][j] && !visitado[i + 1][j]){
-                visitado[i + 1][j] = num;
-                dfs(i + 1, j, num, tami, tamj, visitado, info);
-            }
-        }
-
-        else if(j - 1 >= 0 && i + 1 < tami && indice == 3){
-            if(info[i][j] == info[i + 1][j - 1] && !visitado[i + 1][j - 1]){
-                visitado[i + 1][j - 1] = num;
-                dfs(i + 1, j - 1, num, tami, tamj, visitado, info);
-            }
-        }
-
-        else if(j - 1 >= 0 && indice == 4){
-            if(info[i][j] == info[i][j - 1] && !visitado[i][j - 1]){
-                visitado[i][j - 1] = num;
-                dfs(i, j - 1, num, tami, tamj, visitado, info);
-            }
-        }
-
-        else if(j - 1 >= 0 && i - 1 >= 0 && indice == 5){
-            if(info[i][j] == info[i - 1][j - 1] && !visitado[i - 1][j - 1]){
-                visitado[i - 1][j - 1] = num;
-                dfs(i - 1, j - 1, num, tami, tamj, visitado, info);
-            }
-        }
-
-        else if(i - 1 >= 0 && indice == 6){
-            if(info[i][j] == info[i - 1][j] && !visitado[i - 1][j]){
-                visitado[i - 1][j] = num;
-                dfs(i - 1, j, num, tami, tamj, visitado, info);
-            }
-        }
-
-        else if(j + 1 < tamj && i - 1 >= 0 && indice == 7){
-            if(info[i][j] == info[i - 1][j + 1] && !visitado[i - 1][j + 1]){
-                visitado[i - 1][j + 1] = num;
-                dfs(i - 1, j + 1, num, tami, tamj, visitado, info);
+        if(j + ejey[indice] < tamj && j + ejey[indice] >= 0 && i + ejex[indice] < tami && i + ejex[indice] >= 0){
+            if(info[i][j] == info[i + ejex[indice]][j + ejey[indice]] && !visitado[i + ejex[indice]][j + ejey[indice]]){
+                visitado[i + ejex[indice]][j + ejey[indice]] = num;
+                dfs(i + ejex[indice], j + ejey[indice], num, tami, tamj, visitado, info);
             }
         }
     }
