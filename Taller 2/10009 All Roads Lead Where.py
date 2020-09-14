@@ -5,7 +5,7 @@ visitados = [0 for i in range(27)]
 padre = [-1 for i in range(27)]
 lista = []
 
-def dfs(inicio, fin):
+def bfs(inicio, fin):
     global visitados, padre, lista
     cola = Queue()
     cola.put(inicio)
@@ -47,7 +47,7 @@ def main():
             inicio, fin = list(map(str, stdin.readline().split()))
             inicio = ord(inicio[0]) - 65
             fin = ord(fin[0]) - 65
-            dfs(inicio, fin)
+            bfs(inicio, fin)
             dev = chr(fin + 65)
             ver = True
             temp = fin

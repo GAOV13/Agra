@@ -38,7 +38,7 @@ vi buscarPares(string str){
     return dev;
 }
 
-void dfs(int nodo_ini, int nodo_fin, vi &visitado, vi &padre, vvi &grafo){
+void bfs(int nodo_ini, int nodo_fin, vi &visitado, vi &padre, vvi &grafo){
     qi cola;
     cola.push(nodo_ini);
     ++visitado[nodo_ini];
@@ -77,7 +77,7 @@ int main(){
             vi padre(n + 1, -1);
             int nodo_ini, nodo_fin;
             cin >> nodo_ini >> nodo_fin;
-            dfs(nodo_ini, nodo_fin, visitado, padre, grafo);
+            bfs(nodo_ini, nodo_fin, visitado, padre, grafo);
             if(visitado[nodo_fin] == 0) cout << "connection impossible" << endl;
 
             else{
