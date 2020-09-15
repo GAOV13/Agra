@@ -104,3 +104,4 @@ int main(){
     imprimir(visitados, digits, tami, tamj);
     return 0;
 }
+
